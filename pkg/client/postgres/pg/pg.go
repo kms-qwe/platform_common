@@ -72,7 +72,7 @@ func (p *pg) ExecContext(ctx context.Context, q pgClient.Query, args ...interfac
 	return p.dbc.Exec(ctx, q.QueryRaw, args...)
 }
 
-// ExecContext wrapper of pgpool Query
+// QueryContext wrapper of pgpool Query
 func (p *pg) QueryContext(ctx context.Context, q pgClient.Query, args ...interface{}) (pgx.Rows, error) {
 	logQuery(ctx, q, args...)
 
