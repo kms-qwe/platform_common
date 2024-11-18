@@ -118,6 +118,24 @@ func (c *client) Get(ctx context.Context, key string) (interface{}, error) {
 	return value, nil
 }
 
+// Delete deletes value by key
+func (c *client) Delete(ctx context.Context, key string) error {
+	err := c.execute(ctx, func(_ context.Context, conn redis.Conn) error {
+		_, err := conn.Do("DEL", key)
+		if err != nil {
+			return err
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // Expire sets key with expiration time
 func (c *client) Expire(ctx context.Context, key string, expirationTimeout time.Duration) error {
 	err := c.execute(ctx, func(_ context.Context, conn redis.Conn) error {
